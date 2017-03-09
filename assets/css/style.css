@@ -1,0 +1,27 @@
+.jumbotron {
+	background-color: #ff3f3f;
+	color: white;
+}
+
+.panel-heading {
+	font-size: 20px;
+}
+
+.form-group {
+	padding-left: 15px;
+}
+
+.btn, .btn-success {
+	padding: 10px;
+	padding-left: 18px;
+	padding-right: 18px;
+}
+
+td {
+	
+	padding-top: 22px;
+}
+
+p {
+	font-size: 20px;
+}

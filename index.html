@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Catch Your Ride!</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- LINK TO FIREBASE GOES HERE -->
+
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <br>
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1 class="text-center">Train Schedule</h1>
+        <h2 class="text-center">Search Throughout the United States</h2>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">Train Schedule</div>
+        <div class="panel-body">
+        <table class="table">
+          <tr>
+            <th>Train Name</th>
+            <th>Destination</th>
+            <th>Frequency</th>
+            <th>Next Arrival</th>
+            <th>Minutes Away</th>
+          </tr>
+          </table>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">Add Train</div>
+        <br>
+        <form>
+        <div class="form-group">
+        <label for="trainName">Name of Train</label>
+        <input type="text" class="form-control" id="nameOfTrain" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="destination">Destination</label>
+          <input type="text" class="form-control" id="trainDest" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="first-train">First Train Arrives (HH:mm - military time)</label>
+          <input type="number" class="form-control" id="firstTrain" placeholder="">
+          </div>
+          <div class="form-group">
+          <label for="frequency">Frequency (min)</label>
+          <input type="number" class="form-control" id="trainFreq" placeholder="">
+          </div>
+          <div class="form-group">
+          <input type="submit" id="formSubmit" class="btn btn-success" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div> 
+
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+    <script src="assets/javascript/app.js"></script>
+  </body>
+</html>
