@@ -8,9 +8,11 @@ var config = {
   };
   firebase.initializeApp(config);
 
+//Global variable which will act as an on/off switch
   var ignore = true;
 
   var database = firebase.database();
+
 
   var connectionsRef = database.ref("/connections");
 
@@ -45,7 +47,9 @@ var config = {
   		first: first,
   		freq: freq
   	}
-
+//ignore = true so this makes sure that ignore = false only when button
+//is clicked. later, an if statement will be used to determine if ignore=false
+//this is also written before data is pushed to Firebase
   	ignore = false;
 
 //push object to Firebase
