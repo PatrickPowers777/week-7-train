@@ -41,7 +41,7 @@ connectedRef.on("value", function(snap) {
   	//them as variables
   	var name = $("#nameOfTrain").val().trim();
   	var dest = $("#trainDest").val().trim();
-  	var first = $("#firstTrain").val().trim();
+  	var first = moment($("#firstTrain").val().trim(), "HH:mm").subtract(10, "years").format("X");
   	var freq = $("#trainFreq").val().trim();
 
 	//Create object to store values that can be pushed to Firebase, using the values
@@ -76,7 +76,7 @@ connectedRef.on("value", function(snap) {
  	
 //Prevent moving to a new page
  	return false;
-  })
+  });
 
   	//When a new train is added to Firebase, run this function
   	database.ref().on("child_added", function(childSnapshot) {
@@ -89,52 +89,16 @@ connectedRef.on("value", function(snap) {
   		var tFirst = childSnapshot.val().first;
   		var tFreq = childSnapshot.val().freq;
 
-  		// We're looking for next arrival and minutes away
+  		var remainder = moment().diff(moment.unix(tFirst), "minutes")%tFreq;
+      var minutes = tFreq - remainder;
+      var arrival = moment().add(minutes, "m").format("hh:mm A");
 
-  		console.log(tName);
-  		console.log(tDest);
-  		console.log(tFirst);
-  		console.log(tFreq);
-  		//Rewind the clock so that time is looking forward instead of backward
-  		var timeFormat = moment(tFirst, "hh:mm").subtract(1, "years");
-  		//Figure out the difference in minutes between current time and 1 year ago
-  		var timeDiff = moment().diff(timeFormat, "minutes");
-  		//Get the remainder of minutes between the timeDiff variable and the tFreq
-  		//variable. tFreq sets the pattern of minutes that elap, timeDiff simply
-  		//provides a reference point to draw upon. The remainder of both variables
-  		//provides a reference point between the current time and the next train.
-  		var timeRemainder = timeDiff % tFreq;
-
-  		// Minutes until the next train. Subtract the original time pattern ex. 4 minutes,
-  		// from the remainder between the timeDiff and tFreq variable.  
-  		var timeRemaining = tFreq - timeRemainder;
-
-
-  		// Next arrival time. 
-  		var nextTrain = moment().add(timeRemaining, "minutes");
-  		nextTrain = moment(nextTrain).format("hh:mm")
-  		console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
-
-
-
-  		//If you are having difficulty understading the math or the concepts behind
-  		//it, make sure to use extensive use of the console as it is both your calculator
-  		//and your compass. One thing that I noticed is that if the timeRemainder variable
-  		//returns a negative number, the console will throw an error, making this application
-  		//flawed and will only work when it returns at least the number 0, meaning the train
-  		//has just arrived. So don't worry if the math doesn't quite make sense because
-  		//I found it only works with larger numbers that were used in the military time
-  		//format, as well as with larger numbers used for the frequency in which the train comes.
-  		//I will be deploying a much better version of this app by graduation time.
-  		console.log(timeFormat);
-  		console.log(timeDiff);
-  		console.log(timeRemainder);
-  		console.log('minutes until the next train ' + timeRemaining);
-  		console.log(nextTrain);
-
+      console.log(remainder);
+      console.log(minutes);
+      console.log(arrival);
   		//Now add all of the updated values to the Train Schedule Table
   		$(".table").append("<tr><td>" + tName + "</td><td>" + tDest + "</td><td>" + tFreq + 
-  			"</td><td>" + nextTrain + "</td><td>" + timeRemaining + "</td></tr>");
+  			"</td><td>" + arrival + "</td><td>" + minutes + "</td></tr>");
 
   	}
 
